@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-23 16:00:28
- * @LastEditTime: 2021-03-23 20:16:14
+ * @LastEditTime: 2021-03-23 21:03:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \echarts-map-demo\README.md
@@ -22,7 +22,9 @@ npm install echarts@4.9.0
 
 ## 加载一个最简单的 Echarts 地图
 
-要加载一个最简单的 Echarts 地图，首先要获取区域的 [GeoJson](https://geojson.org/) 数据，然后通过 Echarts 中的 registerMap 注册一个地图，然后在 Options 中 geo 绘制注册的地图，
+1. 要加载一个最简单的 Echarts 地图，首先要获取区域的 [GeoJson](https://geojson.org/) 数据，GeoJson 数据可以在阿里云 [GeoAtlas](http://datav.aliyun.com/tools/atlas/#&lat=30.332329214580188&lng=106.72278672066881&zoom=3.5) 中获取到。
+
+2. 然后通过 Echarts 中的 registerMap 注册一个地图，然后在 Options 中 geo 绘制注册的地图。
 
 ```vue
 <template>
@@ -70,4 +72,24 @@ export default {
 ```
 
 生成的地图如下所示：
-![img](https://github.com/Chenxi-Lau/echarts-map-demo/blob/master/src/assets/simpleMap.png)
+
+![img](https://github.com/Chenxi-Lau/echarts-map-demo/blob/master/src/assets/SimpleMap.png)
+
+## 自定义地图
+
+**GeoAtlas** 生成的 GeoJson 数据只能是中国境内省市，最小单位是到区，例如盐城市亭湖区。在实际的项目中，我们可能需要细分到街道、甚至自定义区域的划分，这时候我们可以通过[http://geojson.io/#map=2/20.0/0.0](http://geojson.io/#map=2/20.0/0.0)网站实现自定义地图。
+
+![img](https://github.com/Chenxi-Lau/echarts-map-demo/blob/master/src/assets/CustomMap.png)
+
+我一共把亭湖区分成七个子模块，定义每个模块的 adcode，以及每个模块的 properties 里面都要设置 parent
+
+```json
+// 子模块的 properties
+"parent": {
+"adcode": 320900 // 亭湖的adcode
+}
+```
+
+然后把原本亭湖区的 GeoJson 数据中换成修改后的 GeoJson 数据，生成效果图如下：
+
+![img](https://github.com/Chenxi-Lau/echarts-map-demo/blob/master/src/assets/CustomEchartMap.png)

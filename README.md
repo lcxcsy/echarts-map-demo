@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-23 16:00:28
- * @LastEditTime: 2021-03-24 17:47:55
+ * @LastEditTime: 2021-03-25 21:03:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \echarts-map-demo\README.md
@@ -110,7 +110,7 @@ export default {
 
 图中，一共把亭湖区分成七个子模块，然后设置每个模块的 properties 属性
 
-```json
+```javascript
 "properties": {
   "adcode": XXXXXX,
   "parent": {
@@ -124,6 +124,8 @@ export default {
 ![img](https://github.com/Chenxi-Lau/echarts-map-demo/blob/master/src/assets/CustomEchartMap.png)
 
 ## 地图撒点
+
+地图撒点可以通过在 series 中定义散点图然后传入自定义数据，通过 label 和 itemStyle 可以设置标签和样式。
 
 ```javascript
 // data中配置
@@ -149,12 +151,6 @@ series: [
         fontWeight: 'bold',
         show: true,
       },
-      emphasis: {
-        formatter: '{b}',
-        position: 'right',
-        fontWeight: 'bold',
-        show: true,
-      },
     },
   },
   {
@@ -168,18 +164,50 @@ series: [
         position: 'right',
         show: true,
       },
-      emphasis: {
-        show: true,
-      },
     },
     itemStyle: {
       normal: {
         color: '#F4E925',
       },
-      emphasis: {
-        color: '#c00',
+    },
+  },
+]
+```
+
+## 点与点之间的飞线
+
+同样，我们需要知道飞线的两个点的地理坐标，然后在 series 中定义 type:lines，然后在 data 中传入我们自定义的数据。
+
+```javascript
+// 自定义飞线坐标
+moveLines: {
+  'normal': [
+    { fromName: '区政府', toName: '机场', coords: [[120.20347595214844, 33.431154816588574], [120.19416332244873, 33.38300620236494]] }
+  ],
+  'warning': [ ]
+},
+// series 模块
+series: [
+  {
+    name: '线路',
+    type: 'lines',
+    coordinateSystem: 'geo', // 地理坐标系
+    zlevel: 2,
+    large: true,
+    data: linesData, // 传入散点的数据
+    lineStyle: {
+      normal: {
+        color: '#0fff17',
+        width: 2,
+        opacity: 1.0,
+        curveness: 0.15,
       },
     },
   },
 ]
 ```
+
+## Reference
+
+1. [http://geojson.io/](http://geojson.io/)
+2. [https://echarts.apache.org/zh/option.html#title](https://echarts.apache.org/zh/option.html#title)

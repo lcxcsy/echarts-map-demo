@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-25 19:34:46
- * @LastEditTime: 2021-03-25 20:00:38
+ * @LastEditTime: 2021-03-27 12:07:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \echarts-map-demo\src\mixins\mapMethods.js
@@ -9,12 +9,12 @@
 export default {
   methods: {
     // 设置地图的数据
-    // scatterPrimaryData 散点重要数据
-    // scatterGeneralData 散点普通数据
-    // linesData 飞线数据
-    setOptionData (scatterPrimaryData, scatterGeneralData, linesData) {
+    // pData 散点重要数据
+    // gData 散点普通数据
+    // mData 飞线数据
+    setOptionData (areaName, pData = [], gData = [], mData = []) {
       return {
-        backgroundColor: '#091c3d',
+        backgroundColor: '#090F27',
         title: {
           top: 20,
           text: '盐城市亭湖区自定义区域图',
@@ -27,7 +27,7 @@ export default {
         // 用于地图的绘制
         geo: {
           show: true,
-          map: 'tinghu', // 上面已经注册的地图
+          map: areaName, // 上面已经注册的地图
           roam: true, // 开启鼠标缩放和平移漫游
           itemStyle: { // 地图区域的多边形图形样式
             normal: {
@@ -40,6 +40,20 @@ export default {
             emphasis: {
               areaColor: '#2B91B7'
             }
+          },
+          label: {
+            normal: {
+              show: true,
+              textStyle: {
+                color: '#fff'
+              }
+            },
+            emphasis: {
+              show: true,
+              textStyle: {
+                color: '#ffc125' // 滑过文字颜色
+              }
+            }
           }
         },
         //
@@ -49,7 +63,7 @@ export default {
             name: 'government ',
             type: 'scatter',
             coordinateSystem: 'geo', // 地理坐标系
-            data: scatterPrimaryData, // 传入散点的数据
+            data: pData, // 传入散点的数据
             symbol: 'image://https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1546977080,3431296399&fm=26&gp=0.jpg', // 标记的图形 可以使用URL链接 'image://http://xxx.xxx.xxx/a/b.png'
             symbolSize: 20, // 图形大小
             label: {
@@ -66,7 +80,7 @@ export default {
             name: 'airPort',
             type: 'scatter',
             coordinateSystem: 'geo', // 地理坐标系
-            data: scatterGeneralData, // 传入散点的数据
+            data: gData, // 传入散点的数据
             label: {
               normal: {
                 formatter: '{b}',
@@ -87,7 +101,7 @@ export default {
             coordinateSystem: 'geo', // 地理坐标系
             zlevel: 2,
             large: true,
-            data: linesData, // 传入散点的数据
+            data: mData, // 传入散点的数据
             lineStyle: {
               normal: {
                 color: '#0fff17',

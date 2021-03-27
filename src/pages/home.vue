@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-23 16:00:55
- * @LastEditTime: 2021-03-25 20:43:16
+ * @LastEditTime: 2021-03-27 11:44:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \myself\echarts-map-demo\src\pages\home.vue
@@ -9,9 +9,10 @@
 <template>
   <div class="wrapper">
     <Map ref="map" />
-    <div class="area-name">
-      <ul>
-        <li v-for="(item, index) in areaName" :key="index" @click="areaNameClick">{{item}}</li>
+    <div class="area-name-wrapper">
+      <ul class="area-name">
+        <li v-for="(item, index) in areaName" :key="index" @click="areaNameClick(item.value)">{{item.label}}
+        </li>
       </ul>
     </div>
   </div>
@@ -26,12 +27,22 @@ export default {
   },
   data () {
     return {
-      areaName: ['物流区', '商业区', '开发区', '政治区', '产业区', '城郊南', '开发区', '城郊东']
+      areaName: [
+        { label: '亭湖区', value: 'th' },
+        { label: '物流区', value: 'wl' },
+        { label: '商业区', value: 'sy' },
+        { label: '开发区', value: 'kf' },
+        { label: '政治区', value: 'zz' },
+        { label: '产业区', value: 'cy' },
+        { label: '城郊南', value: 'cjn' },
+        { label: '开发区', value: 'kf' },
+        { label: '城郊东', value: 'cjd' }
+      ]
     }
   },
   methods: {
-    areaNameClick () {
-      this.$refs.map.zoomMap()
+    areaNameClick (value) {
+      this.$refs.map.initMap(value)
     }
   }
 }
@@ -40,12 +51,22 @@ export default {
 .wrapper {
   width: 100%;
   height: 100%;
-  .area-name {
+  .area-name-wrapper {
     position: absolute;
+    width: 100px;
+    height: 100%;
     left: 0;
-    top: 0;
-    &:hover {
+    top: 25%;
+    .area-name {
+      list-style: none;
+      color: #fff;
+      line-height: 40px;
+      letter-spacing: 4px;
       cursor: pointer;
+      li:hover {
+        color: #ffc125;
+        font-weight: bold;
+      }
     }
   }
 }

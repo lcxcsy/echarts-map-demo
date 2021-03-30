@@ -1,7 +1,7 @@
 <!--
  * @Author: 刘晨曦
  * @Date: 2021-03-23 16:02:15
- * @LastEditTime: 2021-03-27 11:24:25
+ * @LastEditTime: 2021-03-29 19:12:22
  * @LastEditors: Please set LastEditors
  * @Description: Echarts地图的引入
  * @FilePath: \myself\echarts-map-demo\src\components\echarts\map.vue
@@ -57,6 +57,7 @@ export default {
     },
     // 点击地图的某一部分
     handleMapClick (params) {
+      this.chartInstance.clear()
       this.initMap(areaMap[params.name])
     }
   }
@@ -67,5 +68,8 @@ export default {
 #map {
   width: 100%;
   height: 100%;
+  // background-image: url('../../assets/image/background.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 </style>

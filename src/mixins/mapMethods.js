@@ -1,11 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-03-25 19:34:46
- * @LastEditTime: 2021-03-27 12:07:07
+ * @LastEditTime: 2021-03-29 19:19:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \echarts-map-demo\src\mixins\mapMethods.js
  */
+import { tipData } from '@/assets/javascript/mapData'
 export default {
   methods: {
     // 设置地图的数据
@@ -15,9 +16,10 @@ export default {
     setOptionData (areaName, pData = [], gData = [], mData = []) {
       return {
         backgroundColor: '#090F27',
+        // 标题
         title: {
           top: 20,
-          text: '盐城市亭湖区自定义区域图',
+          text: '江苏省盐城市亭湖区自定义地图',
           subtext: '',
           x: 'center',
           textStyle: {
@@ -29,6 +31,7 @@ export default {
           show: true,
           map: areaName, // 上面已经注册的地图
           roam: true, // 开启鼠标缩放和平移漫游
+          data: tipData,
           itemStyle: { // 地图区域的多边形图形样式
             normal: {
               areaColor: 'transparent',
@@ -54,7 +57,20 @@ export default {
                 color: '#ffc125' // 滑过文字颜色
               }
             }
-          }
+          },
+          regions: [{
+            name: '物流区',
+            itemStyle: {
+              areaColor: '#ccff00',
+              color: 'red'
+            }
+          }]
+        },
+        // 提示框
+        tooltip: {
+          show: true,
+          trigger: 'item',
+          formatter: '{b}'
         },
         //
         series: [
@@ -110,6 +126,13 @@ export default {
                 curveness: 0.15
               }
             }
+          },
+          // 配置地图的相关数据
+          {
+            type: 'map',
+            name: areaName,
+            geoIndex: 0,
+            data: tipData
           }
         ]
       }

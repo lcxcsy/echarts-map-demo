@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.19.0",
     "core-js": "^3.6.5",
     "echarts": "^4.9.0",
     "vue": "^2.6.11",

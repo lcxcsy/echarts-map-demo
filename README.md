@@ -1,5 +1,5 @@
 <!--
- * @Author: your name
+ * @Author: 刘晨曦
  * @Date: 2021-03-23 16:00:28
  * @LastEditTime: 2021-03-25 21:03:22
  * @LastEditors: Please set LastEditors
@@ -7,11 +7,18 @@
  * @FilePath: \echarts-map-demo\README.md
 -->
 
-# 基于 Echarts 的自定义地图及地图撒点飞线功能的实现
+## echarts-map-demo
 
 > 在做可视化大屏项目的时候，地图模块基本是不可获取的模块，除了一些第三方地图插件，还可以 Echarts 进行实现，然后通过[http://geojson.io/](http://geojson.io/)自定义 GeoJSON 数据，实现自定义地图的展示。
 
-## 项目准备
+主要功能：
+- 随机撒点
+- 随机飞线
+- 随机冒泡
+- 地图弹窗
+- 地图切换
+
+### 项目准备
 
 通过 npm 安装 Echarts
 
@@ -20,28 +27,26 @@
 npm install echarts@4.9.0
 ```
 
-## 加载一个最简单的 Echarts 地图
+### 初始化 Echarts 地图
 
 1. 首先，加载地图要获取区域的 [GeoJson](https://geojson.org/) 数据，GeoJson 数据可以通过阿里云 [GeoAtlas](http://datav.aliyun.com/tools/atlas/#&lat=30.332329214580188&lng=106.72278672066881&zoom=3.5) 平台下载。一个 GeoJson 数据格式大致如下：
 
 ```json
 {
-  "type": "FeatureCollection", // 集合
+  "type": "FeatureCollection",
   "features": [
     {
-      "type": "Feature", // 子集
+      "type": "Feature",
       "properties": {
-        // 相关属性
         "name": "",
-        "adcode": "", // 区号，相当于唯一标识
-        "center": "", // 中心点
+        "adcode": "", 
+        "center": "",
         "level": "district",
-        "parent": {}, // 父级
-        "childrenNum": "childrenNum" // 子集数量
+        "parent": {}, 
+        "childrenNum": "childrenNum"
       },
-      // 地理坐标
       "geometry": {
-        "type": "MultiPolygon", // 类型 点 线 面
+        "type": "MultiPolygon",
         "coordinates": [[[]]]
       }
     }
@@ -100,7 +105,7 @@ export default {
 
 ![img](https://github.com/Chenxi-Lau/echarts-map-demo/blob/master/src/assets/SimpleMap.png)
 
-## 自定义地图
+### 自定义地图
 
 **GeoAtlas** 生成的 GeoJson 数据只能是中国境内省市，最小单位是到区，例如盐城市亭湖区。在实际的项目中，可能需要细分到街道、甚至自定义区域的划分，这时候可以通过[http://geojson.io/#map=2/20.0/0.0](http://geojson.io/#map=2/20.0/0.0)网站实现自定义地图。
 
@@ -123,7 +128,7 @@ export default {
 
 ![img](https://github.com/Chenxi-Lau/echarts-map-demo/blob/master/src/assets/CustomEchartMap.png)
 
-## 地图撒点
+### 地图撒点
 
 地图撒点可以通过在 series 中定义散点图然后传入自定义数据，通过 label 和 itemStyle 可以设置标签和样式。
 
@@ -174,7 +179,7 @@ series: [
 ]
 ```
 
-## 点与点之间的飞线
+### 点与点之间的飞线
 
 同样，我们需要知道飞线的两个点的地理坐标，然后在 series 中定义 type:lines，然后在 data 中传入我们自定义的数据。
 
@@ -207,7 +212,7 @@ series: [
 ]
 ```
 
-## Reference
+### Reference
 
 1. [http://geojson.io/](http://geojson.io/)
 2. [https://echarts.apache.org/zh/option.html#title](https://echarts.apache.org/zh/option.html#title)
